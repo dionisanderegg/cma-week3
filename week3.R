@@ -47,3 +47,37 @@ caro60%>%
   theme_bw()+
   theme(legend.position = "bottom")
 
+# unique ID per move and static phase 
+rle_id <- function(vec){
+  x <- rle(vec)$lengths
+  as.factor(rep(seq_along(x), times=x))
+}
+
+caro60 <- caro60 %>%
+  mutate(segment_id = rle_id(static))
+
+# Moving segments colored by segment ID (all)
+caro60 %>%
+  ggplot(aes(E, N, col = segment_id))  +
+  geom_path() +
+  geom_point() +
+  coord_equal() +
+  theme_bw()+
+  theme(legend.position = "bottom")
+
+# Moving segments colored by segment ID (segments > 5)
+caro60 <- caro60%>%
+  group_by(segment_id) %>%
+  mutate(n = n()) 
+
+caro60 %>%
+  filter(n >=5) %>%
+  ggplot(aes(E, N, col = segment_id))  +
+  geom_path() +
+  geom_point() +
+  coord_equal() +
+  theme_bw()+
+  theme(legend.position = "bottom")
+
+
+
