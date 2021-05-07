@@ -24,23 +24,26 @@ caro60 <- caro60 %>%
 
 # Stepmean als Summary und Histogram:
 summary(caro60$stepMean)
-caro60 %>%
+HIST <- caro60 %>%
   ggplot(aes(stepMean)) +
   geom_histogram()
+HIST
 
-# Static or non static als logical
+# Static or non static als logical if stepMean is Smaller than 5 (see HIST)
 caro60 <- caro60 %>% 
   ungroup() %>%
-  mutate(static = stepMean < mean(stepMean, na.rm = TRUE))
+  mutate(static = stepMean < 5)
 
 # Filter data: keep static = FALSE
 caro60_filter <- caro60 %>%
   filter(!static)
 
 # Visualize geom patz
-caro60_filter%>%
+caro60%>%
   ggplot(aes(E, N))  +
   geom_path() +
-  geom_point() +
-  coord_fixed() +
+  geom_point(aes(colour = static)) +
+  coord_equal() +
+  theme_bw()+
   theme(legend.position = "bottom")
+
