@@ -149,7 +149,7 @@ ggplot(Sililarity_long, aes(as.factor(ID), Value, fill = as.factor(ID))) +
   facet_wrap(~Measure, scales = "free_y") +
   theme_bw() +
   theme(legend.position = "none") +
-  labs(title = "Computed similarities using different measures \n between trajectory 1 and all the others",
+  labs(title = "Computed similarities using different measures \nbetween trajectory 1 and all the others",
        y = "Value\n", x = "\nComparison trajectory")
 
 # ATTENTION: LCSS strongly depends on pointDistance and errorMarg!
